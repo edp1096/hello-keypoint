@@ -38,19 +38,20 @@ def trainMain():
     total_batch = len(train_loader)
     print("Batch count : {}".format(total_batch))
 
-    criterion = nn.CrossEntropyLoss().to(device)
+    # criterion = nn.CrossEntropyLoss().to(device)
     # criterion = myloss.FocalLoss().to(device)
+    criterion = nn.MSELoss().to(device)
     optimizer = optim.SGD(model.parameters(), lr=LEARNING_RATE, momentum=0.9, weight_decay=5e-4)
     # optimizer = optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=5e-4)
     # optim_scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.3)
-    optim_scheduler = optim.lr_scheduler.CyclicLR(
-        optimizer,
-        base_lr=0.0001,
-        max_lr=LEARNING_RATE,
-        step_size_up=total_batch,
-        cycle_momentum=False,
-        mode="triangular2",
-    )
+    # optim_scheduler = optim.lr_scheduler.CyclicLR(
+    #     optimizer,
+    #     base_lr=0.0001,
+    #     max_lr=LEARNING_RATE,
+    #     step_size_up=total_batch,
+    #     cycle_momentum=False,
+    #     mode="triangular2",
+    # )
 
     # 학습 시작
     total_start_time = time.time()
@@ -67,7 +68,7 @@ def trainMain():
             train_acc, train_loss = fit.run(device, train_loader, model, criterion, optimizer)
         valid_acc, valid_loss = valid.run(device, valid_loader, model, criterion)
 
-        optim_scheduler.step()
+        # optim_scheduler.step()
 
         print(f"Train - Acc: {(100*train_acc):>3.2f}%, Loss: {train_loss:>3.5f}")
         print(f"Valid - Acc: {(100*valid_acc):>3.2f}%, Loss: {valid_loss:>3.5f}")
@@ -121,19 +122,21 @@ else:
     image_transform = data_transform
     result_pretrain = trainMain()  # pretrain
 
-    print("Mode: retrain")
-    epoch_num = EPOCHS
-    image_transform = retrain_transform
-    result_retrain = trainMain()  # finetune
+    result = result_pretrain
 
-    result = {
-        "train_accs": result_pretrain["train_accs"] + result_retrain["train_accs"],
-        "valid_accs": result_pretrain["valid_accs"] + result_retrain["valid_accs"],
-        "train_losses": result_pretrain["train_losses"] + result_retrain["train_losses"],
-        "valid_losses": result_pretrain["valid_losses"] + result_retrain["valid_losses"],
-        "best_epoch": result_retrain["best_epoch"] + EPOCHS_PRETRAIN,
-        "best_acc": result_retrain["best_acc"],
-    }
+    # print("Mode: retrain")
+    # epoch_num = EPOCHS
+    # image_transform = retrain_transform
+    # result_retrain = trainMain()  # finetune
+
+    # result = {
+    #     "train_accs": result_pretrain["train_accs"] + result_retrain["train_accs"],
+    #     "valid_accs": result_pretrain["valid_accs"] + result_retrain["valid_accs"],
+    #     "train_losses": result_pretrain["train_losses"] + result_retrain["train_losses"],
+    #     "valid_losses": result_pretrain["valid_losses"] + result_retrain["valid_losses"],
+    #     "best_epoch": result_retrain["best_epoch"] + EPOCHS_PRETRAIN,
+    #     "best_acc": result_retrain["best_acc"],
+    # }
 
 # 학습 결과 그래프
 plotTrainResults(

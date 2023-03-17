@@ -1,11 +1,5 @@
-# DATASET_NAME = "mnist" # size=28
-# DATA_ROOT = "data/mnist"
-
-DATASET_NAME = "stl10"  # size=96
-DATA_ROOT = "data/stl10"
-
-# DATASET_NAME = "dst" # size=224
-# DATA_ROOT = "data/dst"
+DATASET_NAME = "dst" # size=224
+DATA_ROOT = "data/dst"
 
 IMAGE_SIZE = 384
 
