@@ -48,4 +48,5 @@ def computeOks(self, imgId, catId):
             if k1 > 0:
                 e = e[vg > 0]
             ious[i, j] = np.sum(np.exp(-e)) / e.shape[0]
+
     return ious
