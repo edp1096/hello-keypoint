@@ -1,5 +1,6 @@
 ## Facial Keypoints 찍먹
 
+눈코 3point만
 
 ## 찍먹들
 

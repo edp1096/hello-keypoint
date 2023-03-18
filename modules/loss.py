@@ -6,16 +6,9 @@ from torch.nn import Parameter
 import math
 
 
-class My(nn.Module):
-    def __init__(self, in_features, out_features):
-        super().__init__()
-        self.weight = Parameter(torch.FloatTensor(out_features, in_features))
-        nn.init.xavier_uniform_(self.weight)
-
-    def forward(self, input, label=None):
-        output = F.linear(F.normalize(input), F.normalize(self.weight))
-
-        return output
+def NaNMSELoss(output, target):
+    filter = ~torch.isnan(target)
+    return ((output[filter] - target[filter]) ** 2).mean()
 
 
 class ArcFace(nn.Module):

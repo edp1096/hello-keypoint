@@ -58,8 +58,12 @@ def showImage(row):
 def showImageWithKeypoints(row):
     image = getImage(row)
     keypoints = getKeypoints(row)
+    print(keypoints[0])
     plt.imshow(image, cmap="gray")
-    plt.plot(keypoints[:, 0], keypoints[:, 1], "gx")
+    # plt.plot(keypoints[:, 0], keypoints[:, 1], "gx")
+    plt.plot(keypoints[0][0], keypoints[0][1], "gx")  # right eye from watcher side
+    plt.plot(keypoints[1][0], keypoints[1][1], "gx")  # left eye from watcher side
+    plt.plot(keypoints[10][0], keypoints[10][1], "gx")  # nose
     plt.show()
 
 
@@ -96,19 +100,26 @@ for i, data in enumerate(train_data.values):
     # 20  nose_tip_x                 7049 non-null   float64
     # 21  nose_tip_y                 7049 non-null   float64
 
-    # After reshape - 3 points only
-    # 0  (0, 1)   -> 0  left_eye_center_x, left_eye_center_y
-    # 1  (2, 3)   -> 1  right_eye_center_x, right_eye_center_y
+    # After reshape - 3 points only. eyes locations are face owner side, not watcher side
+    # 1  (2, 3)   -> 0  right_eye_center_x, right_eye_center_y
+    # 0  (0, 1)   -> 1  left_eye_center_x, left_eye_center_y
     # 10 (20, 21) -> 2  nose_tip_x, nose_tip_y
 
-    keypoints = [
-        [keypoints_raw[0][0], keypoints_raw[0][1]],
-        [keypoints_raw[1][0], keypoints_raw[1][1]],
-        [keypoints_raw[10][0], keypoints_raw[10][1]],
-    ]
+    if keypoints_raw[1][0] > keypoints_raw[0][0]:
+        print(f"Notice: the location of left eye is right side: {i}")
 
-    for j, k in enumerate(keypoints):
-        if math.isnan(k[0]) or math.isnan(k[1]):
+    # Change eyes from owner side to watcher side
+    keypoints = [[
+        keypoints_raw[1][0],
+        keypoints_raw[1][1],
+        keypoints_raw[0][0],
+        keypoints_raw[0][1],
+        keypoints_raw[10][0],
+        keypoints_raw[10][1],
+    ]]
+
+    for j, k in enumerate(keypoints[0]):
+        if math.isnan(k):
             print(f"nan detected: {i}")
             nan_founds.append(i)
             continue
