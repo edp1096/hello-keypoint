@@ -1,10 +1,11 @@
 DATASET_NAME = "dst"  # size=224
 DATA_ROOT = "data/dst"
 
-IMAGE_SIZE = 384
+# IMAGE_SIZE = 384
+IMAGE_SIZE = 224
 
-# MODEL_NAME = "resnet18"
-MODEL_NAME = "efficientnetv2_s"
+MODEL_NAME = "resnet18"
+# MODEL_NAME = "efficientnetv2_s"
 
 USE_AMP = True
 USE_ARCFACE = False
@@ -17,16 +18,13 @@ SCATTER_FILE = f"{COMMON_FILENAME}_dist"
 LOSS_RESULT_FILE = f"{COMMON_FILENAME}.png"
 
 
-DATA_LOADER_WORKERS = 4
-
 # BATCH_SIZE = 1920  # resnet18, 28
-# BATCH_SIZE = 256  # resnet18, 96
+BATCH_SIZE = 256  # resnet18, 96
 # BATCH_SIZE = 128  # resnet18, 384
 # BATCH_SIZE = 96  # efficientnetv2_s, 96
-BATCH_SIZE = 32  # efficientnetv2_s, 224
+# BATCH_SIZE = 32  # efficientnetv2_s, 224
 # BATCH_SIZE = 14  # efficientnetv2_s, 384
 
 EPOCHS_PRETRAIN = 10
-# EPOCHS = 40
-EPOCHS = 20
+EPOCHS = 40
 LEARNING_RATE = 0.03

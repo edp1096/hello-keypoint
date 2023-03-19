@@ -1,11 +1,9 @@
 import torch
 
-import numpy as np
-import pandas as pd
-
 from torch.utils.data import Dataset
 
 import os
+import numpy as np
 from PIL import Image
 
 
@@ -30,13 +28,10 @@ class FacialKeypointsDataset(Dataset):
             self.keypoints.append(keypoints)
 
     def __getitem__(self, idx):
-        image = self.images[idx]
-        keypoints = self.keypoints[idx]
-
-        return_dict = {"image": image, "keypoints": keypoints}
+        return_dict = {"image": self.images[idx], "keypoints": self.keypoints[idx]}
 
         if self.transforms:
-            return_dict["image"] = self.transforms(return_dict["image"])
+            return_dict = self.transforms(return_dict)
 
         return return_dict
 

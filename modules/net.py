@@ -42,7 +42,7 @@ class NetHead(nn.Module):
         self.embedding = output
 
     def forward(self, x, label=None):
-        x = self.model(x)
+        x = self.model(x.float())
         x = self.fc(x)
 
         if USE_ARCFACE is True and label is not None:

@@ -27,6 +27,20 @@ def plotTrainResults(train_accs, valid_accs, train_losses, valid_losses, best_ep
     plt.show()
 
 
+def plotTrainResultsLoss(train_losses, valid_losses, best_epoch, best_loss):
+    fig, ax = plt.subplots(1, 1, figsize=(6, 6))
+    fig.suptitle(f"{DATASET_NAME} - {MODEL_NAME}")
+
+    ax.set_title("Loss")
+    ax.plot(train_losses, label="train")
+    ax.plot(valid_losses, label="valid")
+    ax.plot([best_epoch + 1], [best_loss], marker="o", markersize=5, color="red", label="best")
+    ax.legend()
+
+    plt.savefig(LOSS_RESULT_FILE)
+    plt.show()
+
+
 def scatter(x, labels, root=".", subtitle=None, dataset="MNIST"):
     num_classes = len(set(labels))
     palette = np.array(sns.color_palette("hls", num_classes))
@@ -66,3 +80,15 @@ def scatter(x, labels, root=".", subtitle=None, dataset="MNIST"):
     if not os.path.exists(root):
         os.makedirs(root)
     plt.savefig(os.path.join(root, str(subtitle)))
+
+
+# 1d 3point keypoints
+def plotFaceWithKeypoints(data):
+    image, keypoints = data["image"], data["keypoints"]
+
+    plt.imshow(image.permute(1, 2, 0).numpy())
+    plt.plot(keypoints[0], keypoints[1], "gx")
+    plt.plot(keypoints[2], keypoints[3], "gx")
+    plt.plot(keypoints[4], keypoints[5], "gx")
+
+    plt.show()
