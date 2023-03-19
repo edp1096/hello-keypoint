@@ -1,4 +1,4 @@
-## Facial Keypoints 찍먹
+## Facial keypoints 찍먹
 
 눈코 3point만
 
