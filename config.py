@@ -1,8 +1,8 @@
 DATASET_NAME = "dst"  # size=224
 DATA_ROOT = "data/dst"
 
-# IMAGE_SIZE = 384
-IMAGE_SIZE = 224
+IMAGE_SIZE = 384
+# IMAGE_SIZE = 224
 
 # MODEL_NAME = "resnet18"
 MODEL_NAME = "efficientnetv2_s"
