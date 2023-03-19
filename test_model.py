@@ -24,7 +24,7 @@ data = test_transform(data)
 num_classes = 6
 
 
-model = NetHead(num_classes)
+model = NetHead(num_classes, pretrained=False)
 model.to(device)
 model.load_state_dict(loadWeights()["model"])
 model.eval()
@@ -33,4 +33,4 @@ with torch.no_grad():
     embed, pred = model(data["image"].unsqueeze(dim=0).to(device))
 
 sample = {"image": data["image"], "keypoints": pred.cpu().squeeze(dim=0)}
-plotFaceWithKeypoints(sample)
+plotFaceWithKeypoints(sample, is_save=True)

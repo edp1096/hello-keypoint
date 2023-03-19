@@ -19,6 +19,7 @@ python scripts/extract_csv.py
 
 ```powershell
 python ./train_model.py
+python ./test_model.py
 ```
 
 

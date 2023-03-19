@@ -82,13 +82,15 @@ def scatter(x, labels, root=".", subtitle=None, dataset="MNIST"):
     plt.savefig(os.path.join(root, str(subtitle)))
 
 
-# 1d 3point keypoints
-def plotFaceWithKeypoints(data):
+def plotFaceWithKeypoints(data, is_save=False, save_fname="test.png"):
     image, keypoints = data["image"], data["keypoints"]
 
     plt.imshow(image.permute(1, 2, 0).numpy())
     plt.plot(keypoints[0], keypoints[1], "gx")
     plt.plot(keypoints[2], keypoints[3], "gx")
     plt.plot(keypoints[4], keypoints[5], "gx")
+
+    if is_save:
+        plt.savefig(save_fname)
 
     plt.show()
