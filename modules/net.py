@@ -36,7 +36,6 @@ class NetHead(nn.Module):
                 # self.model.global_pool.register_forward_hook(self.getEmbeddingHook)
 
         self.fc = nn.Linear(in_features, num_classes)
-        self.arcface = ArcFace(num_classes, num_classes, s=30.0, m_arc=0.5)
 
     def getEmbeddingHook(self, net_model, input, output):
         self.embedding = output
@@ -44,8 +43,5 @@ class NetHead(nn.Module):
     def forward(self, x, label=None):
         x = self.model(x.float())
         x = self.fc(x)
-
-        if USE_ARCFACE is True and label is not None:
-            x = self.arcface(x, label)
 
         return self.embedding, x
