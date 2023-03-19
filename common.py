@@ -9,6 +9,14 @@ import modules.xfrm as xfrm
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Device:", device)
 
+test_transform = transforms.Compose(
+    [
+        xfrm.PilToNumpy(),
+        xfrm.ResizeKeypointAndImage((IMAGE_SIZE, IMAGE_SIZE)),
+        xfrm.KeypointImageToTensor(),
+    ]
+)
+
 pretrain_transform = transforms.Compose(
     [
         xfrm.PilToNumpy(),

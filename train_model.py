@@ -37,10 +37,10 @@ def trainMain():
     train_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
     valid_loader = DataLoader(valid_set, batch_size=BATCH_SIZE, shuffle=True)
 
-    # # sample
-    # sample = train_loader.dataset[1]
-    # plotFaceWithKeypoints(sample)
-    # exit()
+    # sample
+    sample = train_loader.dataset[1]
+    plotFaceWithKeypoints(sample)
+    exit()
 
     model = NetHead(num_classes, pretrained=True)
     model.to(device)
