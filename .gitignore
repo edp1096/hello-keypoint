@@ -1,4 +1,10 @@
 __pycache__
+data/lfw_src/*
+!data/lfw_src/.gitkeep
+data/lfw_dst
+data/vggface_src/*
+!data/vggface_src/.gitkeep
+data/vggface_dst
 data/src/*.csv
 data/dst
 /weights/*
