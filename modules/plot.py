@@ -88,7 +88,8 @@ def plotFaceWithKeypoints(data, is_save=False, save_fname="test.png"):
     plt.imshow(image.permute(1, 2, 0).numpy())
     plt.plot(keypoints[0], keypoints[1], "gx")
     plt.plot(keypoints[2], keypoints[3], "gx")
-    plt.plot(keypoints[4], keypoints[5], "gx")
+    if POINT_NUM != 4:
+        plt.plot(keypoints[4], keypoints[5], "gx")
 
     if is_save:
         plt.savefig(save_fname)
