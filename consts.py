@@ -6,7 +6,6 @@ from torchvision import transforms
 import modules.xfrm as xfrm
 
 
-
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"PyTorch version: {torch.__version__}, Device: {device}")
 
