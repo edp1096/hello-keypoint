@@ -16,6 +16,7 @@ import random
 
 
 sample_path = "data/sample"
+# fname = "will_farrell.jpg"
 fname = "will_farrell_crop.jpg"
 
 image = Image.open(f"{sample_path}/{fname}").convert("RGB")
