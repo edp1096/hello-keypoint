@@ -1,4 +1,4 @@
-from common import device
+from consts import device
 from config import *
 
 import torch.nn as nn

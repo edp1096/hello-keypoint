@@ -1,5 +1,5 @@
 from config import *
-from common import *
+from consts import *
 
 import torch
 import torch.nn as nn
