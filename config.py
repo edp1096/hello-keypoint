@@ -15,8 +15,8 @@ MODEL_NAME = "efficientnetv2_s"
 IMAGE_SIZE = 384
 # IMAGE_SIZE = 224
 
-# POINT_NUM = 6 # 3 xy poionts. keypoints - left eye, right eye, nose
-POINT_NUM = 4  # 2 xy poionts. bounding box - left upper point, right lower point
+# POINT_NUM = 6 # 3 xy points. facial keypoints - left eye, right eye, nose
+POINT_NUM = 4  # 2 xy points. bounding box - left upper point, right lower point
 
 USE_AMP = True
 
