@@ -1,11 +1,22 @@
-DATASET_NAME = "dst"  # size=224
-DATA_ROOT = "data/dst"
+# DATASET_NAME = "dst" # for keypoints
+# DATA_ROOT = "data/dst/train"
+# DATA_TEST_ROOT = "data/dst/test"
+# DATASET_NAME = "humanface_keypoint"
+# DATA_ROOT = "data/vggface_crop_dst"
+# DATA_TEST_ROOT = "data/lfw_dst"
+
+DATASET_NAME = "humanface_bbox"
+DATA_ROOT = "data/vggface_dst"
+DATA_TEST_ROOT = "data/lfw_dst"
+
+# MODEL_NAME = "resnet18"
+MODEL_NAME = "efficientnetv2_s"
 
 IMAGE_SIZE = 384
 # IMAGE_SIZE = 224
 
-# MODEL_NAME = "resnet18"
-MODEL_NAME = "efficientnetv2_s"
+# POINT_NUM = 6 # 3 xy poionts. keypoints - left eye, right eye, nose
+POINT_NUM = 4  # 2 xy poionts. bounding box - left upper point, right lower point
 
 USE_AMP = True
 

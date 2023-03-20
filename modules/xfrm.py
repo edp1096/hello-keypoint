@@ -1,3 +1,5 @@
+from config import *
+
 import torch
 from torchvision.utils import _log_api_usage_once
 from torchvision.transforms import functional as F
@@ -91,11 +93,12 @@ class RandomHorizontalFlip(object):
 
             width_img = np.shape(img_with_keypoints["image"])[0]
             old_keypoints = np.copy(img_with_keypoints["keypoints"])
-            new_keypoints = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+            new_keypoints = np.zeros(POINT_NUM)
 
             new_keypoints[0], new_keypoints[1] = width_img - old_keypoints[2], old_keypoints[3]  # left eye
             new_keypoints[2], new_keypoints[3] = width_img - old_keypoints[0], old_keypoints[1]  # right eye
-            new_keypoints[4], new_keypoints[5] = width_img - old_keypoints[4], old_keypoints[5]  # nose
+            if POINT_NUM == 6:
+                new_keypoints[4], new_keypoints[5] = width_img - old_keypoints[4], old_keypoints[5]  # nose
 
             return {"image": new_image, "keypoints": new_keypoints}
         else:
@@ -154,11 +157,36 @@ class RandomRotation(object):
             width, height = image.shape[0], image.shape[1]
             origin = (width / 2, height / 2)
             new_keypoints = np.copy(keypoints)
-            point_count = 3
-            for i, point in enumerate(keypoints.reshape(point_count, 2)):
+            point_num = int(POINT_NUM / 2)
+
+            if POINT_NUM == 4:  # bounding box
+                # Append lower left and upper right corner from new_keypoints
+                new_keypoints = np.append(new_keypoints, [new_keypoints[0], new_keypoints[3], new_keypoints[2], new_keypoints[1]])
+                point_num = POINT_NUM
+
+            for i, point in enumerate(new_keypoints.reshape(point_num, 2)):
                 new_point = self.rotate_point(origin, point, angle)
                 new_keypoints[i * 2] = new_point[0]
                 new_keypoints[i * 2 + 1] = new_point[1]
+
+            if POINT_NUM == 4:  # bounding box
+                if angle > 0:
+                    new_keypoints[0] = new_keypoints[4]  # Reassign upper left x
+                    new_keypoints[2] = new_keypoints[6]  # Reassign lower right x
+                if angle < 0:
+                    new_keypoints[1] = new_keypoints[7]  # Reassign upper left y
+                    new_keypoints[3] = new_keypoints[5]  # Reassign lower right y
+
+                if new_keypoints[0] < 0:
+                    new_keypoints[0] = 0
+                if new_keypoints[1] < 0:
+                    new_keypoints[1] = 0
+                if new_keypoints[2] > width:
+                    new_keypoints[2] = width
+                if new_keypoints[3] > height:
+                    new_keypoints[3] = height
+
+                new_keypoints = new_keypoints[0:4]  # Remove lower left and upper right
 
             return {"image": new_image, "keypoints": new_keypoints}
 
@@ -198,6 +226,16 @@ class RandomTranslation(object):
             new_keypoints = keypoints.copy()
             new_keypoints[0::2] = keypoints[0::2] + x_translate_pixel
             new_keypoints[1::2] = keypoints[1::2] + y_translate_pixel
+
+            if POINT_NUM == 4:  # bounding box
+                if new_keypoints[0] < 0:
+                    new_keypoints[0] = 0
+                if new_keypoints[1] < 0:
+                    new_keypoints[1] = 0
+                if new_keypoints[2] > width:
+                    new_keypoints[2] = width
+                if new_keypoints[3] > height:
+                    new_keypoints[3] = height
 
             return {"image": shifted, "keypoints": new_keypoints}
 

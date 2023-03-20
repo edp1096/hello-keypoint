@@ -100,7 +100,7 @@ for i, data in enumerate(train_data.values):
     # 20  nose_tip_x                 7049 non-null   float64
     # 21  nose_tip_y                 7049 non-null   float64
 
-    # After reshape - 3 points only. eyes locations are face owner side, not watcher side
+    # After reshape - Use 3 points only and swap eyes keypoints. the eyes keypoints are not placed for watcher side
     # 1  (2, 3)   -> 0  right_eye_center_x, right_eye_center_y
     # 0  (0, 1)   -> 1  left_eye_center_x, left_eye_center_y
     # 10 (20, 21) -> 2  nose_tip_x, nose_tip_y
@@ -109,14 +109,16 @@ for i, data in enumerate(train_data.values):
         print(f"Notice: the location of left eye is right side: {i}")
 
     # Change eyes from owner side to watcher side
-    keypoints = [[
-        keypoints_raw[1][0],
-        keypoints_raw[1][1],
-        keypoints_raw[0][0],
-        keypoints_raw[0][1],
-        keypoints_raw[10][0],
-        keypoints_raw[10][1],
-    ]]
+    keypoints = [
+        [
+            keypoints_raw[1][0],
+            keypoints_raw[1][1],
+            keypoints_raw[0][0],
+            keypoints_raw[0][1],
+            keypoints_raw[10][0],
+            keypoints_raw[10][1],
+        ]
+    ]
 
     for j, k in enumerate(keypoints[0]):
         if math.isnan(k):

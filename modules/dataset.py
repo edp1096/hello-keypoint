@@ -1,5 +1,6 @@
-import torch
+from config import *
 
+import torch
 from torch.utils.data import Dataset
 
 import os
@@ -28,7 +29,7 @@ class FacialKeypointsDataset(Dataset):
             self.keypoints.append(keypoints)
 
     def __getitem__(self, idx):
-        return_dict = {"image": self.images[idx], "keypoints": self.keypoints[idx]}
+        return_dict = {"image": self.images[idx], "keypoints": self.keypoints[idx][:POINT_NUM]}
 
         if self.transforms:
             return_dict = self.transforms(return_dict)

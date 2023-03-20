@@ -15,9 +15,9 @@ import matplotlib.pyplot as plt
 import random
 
 
-test_set_path = os.listdir(f"{DATA_ROOT}/test")
+test_set_path = os.listdir(f"{DATA_TEST_ROOT}")
 rand_num = random.randint(0, len(test_set_path) - 1)
-image = Image.open(f"{DATA_ROOT}/test/{test_set_path[rand_num]}").convert("RGB")
+image = Image.open(f"{DATA_TEST_ROOT}/{test_set_path[rand_num]}").convert("RGB")
 data = {"image": image, "keypoints": np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])}
 data = test_transform(data)
 

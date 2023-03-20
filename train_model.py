@@ -22,11 +22,13 @@ import time
 
 
 def trainMain():
-    image_path = f"{DATA_ROOT}/train/images"
-    annotation_path = f"{DATA_ROOT}/train/annotations"
+    # image_path = f"{DATA_ROOT}/train/images"
+    # annotation_path = f"{DATA_ROOT}/train/annotations"
+    image_path = f"{DATA_ROOT}/images"
+    annotation_path = f"{DATA_ROOT}/annotations"
 
     data_set = FacialKeypointsDataset(image_path, annotation_path, transforms=None)
-    num_classes = data_set[0]["keypoints"].shape[0]  # 6
+    num_classes = data_set[0]["keypoints"].shape[0]  # 4 (bbox 2 points) or 6 (landmarks 3 points)
 
     data_set.transforms = image_transform
 
