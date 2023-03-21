@@ -26,7 +26,7 @@ image = Image.open(f"{sample_path}/{fname}").convert("RGB")
 data = {"image": image, "keypoints": np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])}
 data = test_transform(data)
 
-num_classes = 6
+num_classes = POINT_NUM
 
 
 model = NetHead(num_classes, pretrained=False)

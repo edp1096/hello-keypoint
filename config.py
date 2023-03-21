@@ -5,18 +5,17 @@
 # DATA_ROOT = "data/vggface_crop_dst"
 # DATA_TEST_ROOT = "data/lfw_dst"
 
-DATASET_NAME = "humanface_bbox"
+DATASET_NAME = "humanface_keypoints"
 DATA_ROOT = "data/vggface_dst"
 DATA_TEST_ROOT = "data/lfw_dst"
 
-# MODEL_NAME = "resnet18"
+MODEL_NAME = "resnet18"
 MODEL_NAME = "efficientnetv2_s"
 
-IMAGE_SIZE = 384
-# IMAGE_SIZE = 224
+# IMAGE_SIZE = 384
+IMAGE_SIZE = 224
 
-# POINT_NUM = 6 # 3 xy points. facial keypoints - left eye, right eye, nose
-POINT_NUM = 4  # 2 xy points. bounding box - left upper point, right lower point
+POINT_NUM = 6  # 3 xy points. facial keypoints - left eye, right eye, nose
 
 USE_AMP = True
 
@@ -33,7 +32,7 @@ LOSS_RESULT_FILE = f"{COMMON_FILENAME}.png"
 # BATCH_SIZE = 128  # resnet18, 384
 # BATCH_SIZE = 96  # efficientnetv2_s, 96
 # BATCH_SIZE = 32  # efficientnetv2_s, 224
-BATCH_SIZE = 14  # efficientnetv2_s, 384
+BATCH_SIZE = 13  # efficientnetv2_s, 384
 
 EPOCHS_PRETRAIN = 10
 EPOCHS = 40
