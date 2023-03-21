@@ -6,8 +6,8 @@ from shutil import copyfile
 DATA_SRC_ROOT = "D:/dev/datasets/VGG-Face2"
 # DATA_SRC_ROOT = "data/vggface_src"
 
-DATA_DST_ROOT = "data/vggface_dst"
 IMAGE_SRC_PATH = f"{DATA_SRC_ROOT}/data/train"
+DATA_DST_ROOT = "data/vggface_bbox_dst"
 IMAGE_TRAIN_PATH = f"{DATA_DST_ROOT}/train/images"
 ANNOTATION_TRAIN_PATH = f"{DATA_DST_ROOT}/train/annotations"
 IMAGE_TEST_PATH = f"{DATA_DST_ROOT}/test/images"
@@ -68,7 +68,13 @@ for j, row in df_bbox.iterrows():
 
     copyfile(f"{IMAGE_SRC_PATH}/{person_id}/{image_name}.jpg", f"{target_image_path}/{image_count}.jpg")
 
-    bbox = [row["X"], row["Y"], row["X"] + row["W"], row["Y"] + row["H"]]
+    # bbox = [row["X"], row["Y"], row["X"] + row["W"], row["Y"] + row["H"]]
+    # Create all bbox point from top-left to bottom-right
+    p1 = [row["X"], row["Y"]]
+    p2 = [row["X"], row["Y"] + row["H"]]
+    p3 = [row["X"] + row["W"], row["Y"] + row["H"]]
+    p4 = [row["X"] + row["W"], row["Y"]]
+    bbox = p1 + p2 + p3 + p4
 
     with open(f"{target_annotation_path}/{image_count}.csv", "w") as f:
         f.write(",".join([str(point) for point in bbox]))

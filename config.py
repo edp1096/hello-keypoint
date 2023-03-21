@@ -5,16 +5,21 @@
 # DATA_ROOT = "data/vggface_crop_dst"
 # DATA_TEST_ROOT = "data/lfw_dst"
 
-DATASET_NAME = "humanface_keypoints"
-DATA_ROOT = "data/vggface_dst"
-DATA_TEST_ROOT = "data/lfw_dst"
+# DATASET_NAME = "humanface_bbox"
+# DATA_ROOT = "data/vggface_bbox_dst/train"
+# DATA_TEST_ROOT = "data/vggface_bbox_dst/test"
 
-MODEL_NAME = "resnet18"
+DATASET_NAME = "humanface_keypoints"
+DATA_ROOT = "data/vggface_crop_dst/train"
+DATA_TEST_ROOT = "data/vggface_crop_dst/test"
+
+# MODEL_NAME = "resnet18"
 MODEL_NAME = "efficientnetv2_s"
 
-# IMAGE_SIZE = 384
-IMAGE_SIZE = 224
+IMAGE_SIZE = 384
+# IMAGE_SIZE = 224
 
+# POINT_NUM = 8  # 4 xy points. bounding box
 POINT_NUM = 6  # 3 xy points. facial keypoints - left eye, right eye, nose
 
 USE_AMP = True

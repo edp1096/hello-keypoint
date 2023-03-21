@@ -6,14 +6,13 @@ from shutil import copyfile
 DATA_SRC_ROOT = "D:/dev/datasets/VGG-Face2"
 # DATA_SRC_ROOT = "data/vggface_src"
 
-DATA_DST_ROOT = "data/vggface_dst"
 IMAGE_SRC_PATH = f"{DATA_SRC_ROOT}/data/train"
-IMAGE_PATH = f"{DATA_DST_ROOT}/images"
-ANNOTATION_PATH = f"{DATA_DST_ROOT}/annotations"
 
 DATA_CROP_DST_ROOT = "data/vggface_crop_dst"
-IMAGE_CROP_PATH = f"{DATA_CROP_DST_ROOT}/images"
-ANNOTATION_CROP_PATH = f"{DATA_CROP_DST_ROOT}/annotations"
+IMAGE_CROP_TRAIN_PATH = f"{DATA_CROP_DST_ROOT}/train/images"
+ANNOTATION_CROP_TRAIN_PATH = f"{DATA_CROP_DST_ROOT}/train/annotations"
+IMAGE_CROP_TEST_PATH = f"{DATA_CROP_DST_ROOT}/test/images"
+ANNOTATION_CROP_TEST_PATH = f"{DATA_CROP_DST_ROOT}/test/annotations"
 
 person_limit = 100
 
@@ -36,14 +35,16 @@ while True:
     if i >= person_limit:
         break
 
-os.makedirs(DATA_DST_ROOT, exist_ok=True)
-os.makedirs(IMAGE_PATH, exist_ok=True)
-os.makedirs(ANNOTATION_PATH, exist_ok=True)
 os.makedirs(DATA_CROP_DST_ROOT, exist_ok=True)
-os.makedirs(IMAGE_CROP_PATH, exist_ok=True)
-os.makedirs(ANNOTATION_CROP_PATH, exist_ok=True)
+os.makedirs(IMAGE_CROP_TRAIN_PATH, exist_ok=True)
+os.makedirs(ANNOTATION_CROP_TRAIN_PATH, exist_ok=True)
+os.makedirs(IMAGE_CROP_TEST_PATH, exist_ok=True)
+os.makedirs(ANNOTATION_CROP_TEST_PATH, exist_ok=True)
 
 image_count = 0
+person_count = 0
+prev_person_id = ""
+mode = "train"
 for j, row in df_bbox.iterrows():
     person_id = row["NAME_ID"].split("/")[0]
     image_name = row["NAME_ID"].split("/")[1]
@@ -51,25 +52,25 @@ for j, row in df_bbox.iterrows():
     if person_id not in selected_ids:
         continue
 
-    # Prepare data
-    copyfile(f"{IMAGE_SRC_PATH}/{person_id}/{image_name}.jpg", f"{IMAGE_PATH}/{image_count}.jpg")
+    if person_id != prev_person_id:
+        person_count += 1
+        if person_count >= person_limit * 0.8:
+            mode = "test"
+
+        prev_person_id = person_id
 
     bbox = [row["X"], row["Y"], row["X"] + row["W"], row["Y"] + row["H"]]
     landmarks = df_landmark.iloc[j][["P1X", "P1Y", "P2X", "P2Y", "P3X", "P3Y"]].values
-    merged_points = list(bbox) + list(landmarks)
-
-    with open(f"{ANNOTATION_PATH}/{image_count}.csv", "w") as f:
-        f.write(",".join([str(point) for point in merged_points]))
 
     # Prepare cropped data
-    cropped_img = Image.open(f"{IMAGE_PATH}/{image_count}.jpg").crop(bbox)
-    cropped_img.save(f"{IMAGE_CROP_PATH}/{image_count}.jpg")
+    cropped_img = Image.open(f"{IMAGE_SRC_PATH}/{person_id}/{image_name}.jpg").crop(bbox)
+    cropped_img.save(f"{IMAGE_CROP_TRAIN_PATH}/{image_count}.jpg")
 
     landmarks_crop = landmarks.copy()
     landmarks_crop[0::2] = landmarks_crop[0::2] - bbox[0]
     landmarks_crop[1::2] = landmarks_crop[1::2] - bbox[1]
 
-    with open(f"{ANNOTATION_CROP_PATH}/{image_count}.csv", "a") as f:
+    with open(f"{ANNOTATION_CROP_TRAIN_PATH}/{image_count}.csv", "a") as f:
         f.write(",".join([str(point) for point in landmarks_crop]))
 
     image_count += 1
