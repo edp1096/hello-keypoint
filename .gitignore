@@ -5,7 +5,7 @@ data/lfw_dst
 data/vggface_src/*
 !data/vggface_src/.gitkeep
 data/vggface_bbox_dst
-data/vggface_crop_dst
+data/vggface_keypoints_dst
 data/src/*.csv
 data/dst
 /weights/*

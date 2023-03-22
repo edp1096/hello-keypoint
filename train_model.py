@@ -107,6 +107,7 @@ if USE_AMP:
 
 
 image_transform = pretrain_transform
+
 if os.path.isfile(WEIGHT_FILE):
     print("Mode: retrain")
     epoch_num = EPOCHS

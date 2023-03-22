@@ -1,23 +1,16 @@
-# DATASET_NAME = "dst" # for keypoints
+# DATASET_NAME = "dst"
 # DATA_ROOT = "data/dst/train"
 # DATA_TEST_ROOT = "data/dst/test"
-# DATASET_NAME = "humanface_keypoint"
-# DATA_ROOT = "data/vggface_crop_dst"
-# DATA_TEST_ROOT = "data/lfw_dst"
-
-# DATASET_NAME = "humanface_bbox"
-# DATA_ROOT = "data/vggface_bbox_dst/train"
-# DATA_TEST_ROOT = "data/vggface_bbox_dst/test"
 
 DATASET_NAME = "humanface_keypoints"
-DATA_ROOT = "data/vggface_crop_dst/train"
-DATA_TEST_ROOT = "data/vggface_crop_dst/test"
+DATA_ROOT = "data/vggface_keypoints_dst/train"
+DATA_TEST_ROOT = "data/vggface_keypoints_dst/test"
 
-# MODEL_NAME = "resnet18"
-MODEL_NAME = "efficientnetv2_s"
+MODEL_NAME = "resnet18"
+# MODEL_NAME = "efficientnetv2_s"
 
-IMAGE_SIZE = 384
-# IMAGE_SIZE = 224
+# IMAGE_SIZE = 384
+IMAGE_SIZE = 224
 
 # POINT_NUM = 8  # 4 xy points. bounding box
 POINT_NUM = 6  # 3 xy points. facial keypoints - left eye, right eye, nose
@@ -34,11 +27,11 @@ LOSS_RESULT_FILE = f"{COMMON_FILENAME}.png"
 
 # BATCH_SIZE = 1920  # resnet18, 28
 # BATCH_SIZE = 256  # resnet18, 96
-# BATCH_SIZE = 128  # resnet18, 384
+BATCH_SIZE = 128  # resnet18, 384
 # BATCH_SIZE = 96  # efficientnetv2_s, 96
 # BATCH_SIZE = 32  # efficientnetv2_s, 224
-BATCH_SIZE = 13  # efficientnetv2_s, 384
+# BATCH_SIZE = 13  # efficientnetv2_s, 384
 
 EPOCHS_PRETRAIN = 10
-EPOCHS = 40
+EPOCHS = 20
 LEARNING_RATE = 0.03
