@@ -19,8 +19,10 @@ import random
 # # fname = "will_farrell.jpg"
 # fname = "will_farrell_crop.jpg"
 
-sample_path = "hello"
-fname = "444.jpg"
+# sample_path = "hello"
+# fname = "444.jpg"
+sample_path = "."
+fname = "0.jpg"
 
 image = Image.open(f"{sample_path}/{fname}").convert("RGB")
 data = {"image": image, "keypoints": np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])}

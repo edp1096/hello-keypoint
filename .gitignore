@@ -1,4 +1,5 @@
 __pycache__
+data/face_keypoints
 data/lfw_src/*
 !data/lfw_src/.gitkeep
 data/lfw_dst
