@@ -33,4 +33,8 @@ with torch.no_grad():
     embed, pred = model(data["image"].unsqueeze(dim=0).to(device))
 
 sample = {"image": data["image"], "keypoints": pred.cpu().squeeze(dim=0)}
+
+keypoints = sample["keypoints"].reshape(-1, 2)
+print(keypoints)
+
 plotFaceWithKeypoints(sample, is_save=True)
