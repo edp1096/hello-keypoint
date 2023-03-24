@@ -14,7 +14,7 @@ eyeL = [348 * scale_w, 368 * scale_h]
 eyeR = [496 * scale_w, 380 * scale_h]
 nose = [430 * scale_w, 490 * scale_h]
 
-REFERENCE_FACIAL_POINTS = np.float32([(120, 150), (390, 150), (250, 300)])  # left eye, right eye, nose
+REFERENCE_FACIAL_POINTS = np.float32([(120, 150), (390, 150), (250, 320)])  # left eye, right eye, nose
 
 tmpl = (REFERENCE_FACIAL_POINTS).astype(np.int32)
 data = np.zeros((h, w, 3), dtype=np.uint8)
