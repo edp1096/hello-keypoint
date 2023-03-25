@@ -25,12 +25,12 @@ def alignFace(fpath, eyeL, eyeR, nose):
     # REFERENCE_FACIAL_POINTS = np.float32([(120, 150), (390, 150), (250, 320)])  # 512. left eye, right eye, nose
     REFERENCE_FACIAL_POINTS = np.float32([(90, 112), (292, 112), (187, 240)])  # 384. left eye, right eye, nose
 
-    tmpl = (REFERENCE_FACIAL_POINTS).astype(np.int32)
-    data = np.zeros((h, w, 3), dtype=np.uint8)
-    for x, y in tmpl:
-        data[y, x] = [255, 255, 255]
-    img = Image.fromarray(data, "RGB")
-    img.show()
+    # tmpl = (REFERENCE_FACIAL_POINTS).astype(np.int32)
+    # data = np.zeros((h, w, 3), dtype=np.uint8)
+    # for x, y in tmpl:
+    #     data[y, x] = [255, 255, 255]
+    # img = Image.fromarray(data, "RGB")
+    # img.show()
 
     srcPTs = np.array([eyeL, eyeR, nose], dtype=np.float32)
     refPTs = REFERENCE_FACIAL_POINTS

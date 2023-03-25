@@ -6,6 +6,10 @@ DATASET_NAME = "humanface_keypoints"
 DATA_ROOT = "data/vggface_keypoints_dst/train"
 DATA_TEST_ROOT = "data/vggface_keypoints_dst/test"
 
+DATASET_NAME = "face_keypoints"
+DATA_ROOT = "data/face_keypoints_src/train"
+DATA_TEST_ROOT = "data/face_keypoints_src/test"
+
 MODEL_NAME = "resnet18"
 # MODEL_NAME = "efficientnetv2_s"
 
@@ -32,6 +36,6 @@ BATCH_SIZE = 128  # resnet18, 384
 # BATCH_SIZE = 32  # efficientnetv2_s, 224
 # BATCH_SIZE = 13  # efficientnetv2_s, 384
 
-EPOCHS_PRETRAIN = 10
-EPOCHS = 20
+EPOCHS_PRETRAIN = 20
+EPOCHS = 50
 LEARNING_RATE = 0.03
