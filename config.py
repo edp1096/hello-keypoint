@@ -6,9 +6,9 @@ DATASET_NAME = "humanface_keypoints"
 DATA_ROOT = "data/vggface_keypoints_dst/train"
 DATA_TEST_ROOT = "data/vggface_keypoints_dst/test"
 
-DATASET_NAME = "face_keypoints"
-DATA_ROOT = "data/face_keypoints_src/train"
-DATA_TEST_ROOT = "data/face_keypoints_src/test"
+# DATASET_NAME = "face_keypoints"
+# DATA_ROOT = "data/face_keypoints_src/train"
+# DATA_TEST_ROOT = "data/face_keypoints_src/test/images"
 
 MODEL_NAME = "resnet18"
 # MODEL_NAME = "efficientnetv2_s"

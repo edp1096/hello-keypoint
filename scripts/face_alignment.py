@@ -4,7 +4,7 @@ from PIL import Image
 import os
 
 
-def alignFace(fpath, eyeL, eyeR, nose):
+def alignFace(using_type, fpath, eyeL, eyeR, nose):
     # src = cv2.imread("data/sample/will_farrell.jpg", cv2.IMREAD_COLOR)
     src = cv2.imread(fpath, cv2.IMREAD_COLOR)
 
@@ -38,14 +38,23 @@ def alignFace(fpath, eyeL, eyeR, nose):
     aff = cv2.getAffineTransform(srcPTs, refPTs)
     result = cv2.warpAffine(src, aff, (0, 0))  # 0,0 의미: 입력영상 크기와 동일한 출력 영상 생성
 
-    cv2.imshow("src", src)
-    cv2.imshow("dst", result)
-    cv2.waitKey()
-    cv2.destroyAllWindows()
+    # cv2.imshow("src", src)
+    # cv2.imshow("dst", result)
+    # cv2.waitKey()
+    # cv2.destroyAllWindows()
+
+    # save image
+    fname, fext = os.path.splitext(os.path.basename(fpath))
+    dst_fpath = os.path.join(dst_root, using_type, fname + ".jpg")
+    cv2.imwrite(dst_fpath, result)
 
 
 src_root = "data/face_keypoints_src"
 dst_root = "data/face_keypoints_dst"
+
+os.makedirs(dst_root, exist_ok=True)
+os.makedirs(os.path.join(dst_root, "train"), exist_ok=True)
+os.makedirs(os.path.join(dst_root, "test"), exist_ok=True)
 
 for src_sub_root in os.listdir(src_root):
     src_path = os.path.join(src_root, src_sub_root)
@@ -59,5 +68,5 @@ for src_sub_root in os.listdir(src_root):
 
         keypoints = np.loadtxt(an_fpath, delimiter=",", dtype=np.float32).reshape(-1, 2)
         eyeL, eyeR, nose = keypoints[0], keypoints[1], keypoints[2]
-        
-        alignFace(im_fpath, eyeL, eyeR, nose)
+
+        alignFace(src_sub_root, im_fpath, eyeL, eyeR, nose)
