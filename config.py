@@ -10,7 +10,8 @@ DATA_TEST_ROOT = "data/vggface_keypoints_dst/test"
 # DATA_ROOT = "data/face_keypoints_src/train"
 # DATA_TEST_ROOT = "data/face_keypoints_src/test/images"
 
-MODEL_NAME = "resnet18"
+# MODEL_NAME = "resnet18"
+MODEL_NAME = "resnet50"
 # MODEL_NAME = "efficientnetv2_s"
 
 # IMAGE_SIZE = 384
@@ -31,11 +32,13 @@ LOSS_RESULT_FILE = f"{COMMON_FILENAME}.png"
 
 # BATCH_SIZE = 1920  # resnet18, 28
 # BATCH_SIZE = 256  # resnet18, 96
-BATCH_SIZE = 128  # resnet18, 384
+# BATCH_SIZE = 128  # resnet18, 384
+BATCH_SIZE = 64
 # BATCH_SIZE = 96  # efficientnetv2_s, 96
 # BATCH_SIZE = 32  # efficientnetv2_s, 224
 # BATCH_SIZE = 13  # efficientnetv2_s, 384
 
 EPOCHS_PRETRAIN = 20
 EPOCHS = 50
-LEARNING_RATE = 0.03
+LEARNING_RATE = 0.01
+

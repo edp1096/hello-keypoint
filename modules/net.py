@@ -23,6 +23,11 @@ class NetHead(nn.Module):
                 weights = models.ResNet18_Weights.IMAGENET1K_V1
             self.model = models.resnet18(weights=weights)
             in_features, self.model.fc = self.model.fc.in_features, nn.Identity()
+        if MODEL_NAME == "resnet50":
+            if pretrained:
+                weights = models.ResNet50_Weights.IMAGENET1K_V1
+            self.model = models.resnet50(weights=weights)
+            in_features, self.model.fc = self.model.fc.in_features, nn.Identity()
         elif MODEL_NAME == "efficientnetv2_s":
             model_name = "tf_efficientnetv2_s_in21k"
             self.model = timm.create_model(model_name, num_classes=num_classes, pretrained=pretrained, drop_rate=0.2, drop_path_rate=0.2)
